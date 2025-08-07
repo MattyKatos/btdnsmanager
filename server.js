@@ -209,82 +209,36 @@ app.get('/', (req, res) => {
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BT DNS Manager Status</title>
+    <title>BT DNS Manager</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        line-height: 1.6;
+        font-family: monospace;
+        margin: 40px;
+        font-size: 16px;
       }
-      .container {
-        background-color: #f5f5f5;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      .ip-row {
+        margin: 10px 0;
       }
-      h1 {
-        color: #333;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 10px;
-      }
-      .ip-display {
-        margin: 20px 0;
-        padding: 15px;
-        border-radius: 4px;
-      }
-      .ip-label {
-        font-weight: bold;
+      .label {
         display: inline-block;
-        width: 120px;
-      }
-      .status {
-        margin-top: 20px;
-        padding: 10px;
-        border-radius: 4px;
-        font-weight: bold;
+        width: 150px;
       }
       .good {
-        background-color: #d4edda;
-        color: #155724;
+        color: green;
       }
-      .warning {
-        background-color: #fff3cd;
-        color: #856404;
-      }
-      .error {
-        background-color: #f8d7da;
-        color: #721c24;
-      }
-      .refresh {
-        margin-top: 20px;
-        text-align: center;
-        color: #666;
-        font-size: 0.9em;
+      .bad {
+        color: red;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>BT DNS Manager Status</h1>
-      
-      <div class="ip-display">
-        <div><span class="ip-label">Main Device IP:</span> ${mainIP}</div>
-        <div><span class="ip-label">VPN Device IP:</span> ${vpnIP}</div>
-      </div>
-      
-      <div class="status ${ipMatch ? 'error' : (vpnIP === 'unknown' ? 'warning' : 'good')}">
-        ${ipMatch ? '⚠️ WARNING: VPN IP matches main IP!' : 
-          (vpnIP === 'unknown' ? '⚠️ Waiting for VPN device to report its IP...' : 
-          '✅ VPN IP differs from main IP (good)')}
-      </div>
-      
-      <div class="refresh">
-        Last updated: ${new Date().toLocaleString()}
-        <br>
-        <small>This page auto-refreshes every 60 seconds</small>
-      </div>
+    <div class="ip-row">
+      <span class="label">Server Address:</span>
+      <span>${mainIP}</span>
+    </div>
+    <div class="ip-row">
+      <span class="label">VPN Address:</span>
+      <span class="${ipMatch ? 'bad' : 'good'}">${vpnIP}</span>
     </div>
     
     <script>
