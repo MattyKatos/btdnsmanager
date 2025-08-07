@@ -1,0 +1,26 @@
+{
+    "records": [
+      "cloud.broton.xyz",
+      "jellyfin.broton.xyz",
+      "jf.broton.xyz",
+      "jellyseerr.broton.xyz",
+      "js.broton.xyz",
+      "kavita.broton.xyz",
+      "pve.broton.xyz",
+      "search.broton.xyz",
+      "ffxivfc.com",
+      "eternalhearth.com"
+    ],
+    "server": {
+      "port": 3000,
+      "checkInterval": 900000
+    },
+    "client": {
+      "checkInterval": 600000,
+      "runContinuously": true
+    },
+    "vpn": {
+      "requireDifferentIp": true,
+      "alertOnMatch": true
+    }
+  }
