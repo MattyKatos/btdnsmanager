@@ -17,7 +17,8 @@
     },
     "client": {
       "checkInterval": 600000,
-      "runContinuously": true
+      "runContinuously": true,
+      "serverUrl": "http://100.82.252.52:3000"
     },
     "vpn": {
       "requireDifferentIp": true,

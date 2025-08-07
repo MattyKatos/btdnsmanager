@@ -1,13 +1,29 @@
-require('dotenv').config();
 const axios = require('axios');
 const fs = require('fs');
+const path = require('path');
 
 // Configuration
-const CONFIG = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
-const SERVER_URL = process.env.SERVER_URL || 'http://your-server-ip:3000';
+const CONFIG_PATH = path.join(__dirname, 'config.json');
+const CONFIG = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+
+// Allow command line arguments to override config
+const args = process.argv.slice(2);
+const SERVER_URL = getArgValue('--server-url') || CONFIG.client.serverUrl || 'http://localhost:3000';
 const DEVICE_TYPE = 'vpn'; // This client is for the VPN device
-const CHECK_INTERVAL = CONFIG.client.checkInterval || 10 * 60 * 1000; // Default from config
-const RUN_CONTINUOUSLY = CONFIG.client.runContinuously || false; // Default from config
+const CHECK_INTERVAL = parseInt(getArgValue('--interval')) || CONFIG.client.checkInterval || 10 * 60 * 1000;
+const RUN_CONTINUOUSLY = getArgValue('--continuous') !== null ? true : CONFIG.client.runContinuously || false;
+
+// Helper function to get command line argument values
+function getArgValue(name) {
+  const index = args.indexOf(name);
+  if (index !== -1 && index < args.length - 1) {
+    return args[index + 1];
+  }
+  if (args.includes(name)) {
+    return true; // Flag is present without value
+  }
+  return null;
+}
 
 // Get public IP
 async function getPublicIP() {

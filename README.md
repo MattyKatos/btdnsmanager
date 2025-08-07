@@ -63,8 +63,15 @@ npm install
    - `DISCORD_WEBHOOK_URL`: Your Discord webhook URL (optional)
    - `PORT`: Optional override for the port defined in config.json
 
-3. Edit the `.env` file on the VPN device:
-   - `SERVER_URL`: The URL where the server can be reached (e.g., `http://your-server-ip:3000`)
+3. For the VPN device, you can either:
+   - Edit the `config.json` file to configure the client settings:
+     - `client.serverUrl`: The URL where the server can be reached
+     - `client.checkInterval`: Time between checks in milliseconds
+     - `client.runContinuously`: Whether to run continuously or just once
+   - Or use command line arguments when running the client (these override config.json):
+     ```bash
+     node client.js --server-url http://your-server-ip:3000 --continuous --interval 600000
+     ```
 
 ## Usage
 
